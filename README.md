@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Pietro Martins — Portfólio
 
-## Getting Started
+![Prévia do hero do portfólio de Pietro Martins](public/images/portfolio-preview.png)
 
-First, run the development server:
+Portfólio profissional de Pietro Martins Ramos, estudante técnico em Desenvolvimento de Sistemas com foco em backend, Python e aplicações web. A página foi construída para apresentar contexto, decisões e evidências — sem ampliar experiência ou competências além do que os projetos demonstram.
+
+## Direção
+
+A interface segue a ideia **“Evidência, não promessa”**: composição editorial, tipografia em grande escala, grid aparente e contraste entre preto, papel e vermelho-sinal. Não há templates de cards, efeitos 3D ou animações gratuitas; o movimento é discreto e respeita `prefers-reduced-motion`.
+
+## Projetos apresentados
+
+- **ClassFlow:** case principal de organização acadêmica em Python, Flask, Supabase e PostgreSQL.
+- **PMR Truco:** multiplayer em tempo real com Next.js, TypeScript e Supabase.
+- **PMR Assist:** PWA de organização pessoal com assistente baseado em ferramentas estruturadas.
+
+As imagens usadas são capturas reais das versões analisadas. Links privados e integrações ainda em validação são identificados de forma explícita no conteúdo.
+
+## Stack do portfólio
+
+- Next.js 16 com App Router e Server Components
+- React 19 e TypeScript estrito
+- Tailwind CSS 4 como base CSS-first
+- Motion para reveals progressivos
+- `next/image` e `next/font` para mídia e tipografia otimizadas
+- Playwright e axe-core para testes responsivos e de acessibilidade
+
+## Recursos
+
+- landing page responsiva com composição própria para mobile;
+- case study editorial completo do ClassFlow;
+- currículo em PDF para download;
+- navegação por teclado, skip link, foco visível e menu mobile acessível;
+- metadados Open Graph/Twitter, JSON-LD, favicon, manifest, sitemap e robots;
+- imagem social gerada pelo próprio Next.js;
+- auditoria visual automatizada em desktop, tablet e celular.
+
+## Execução local
+
+Requer Node.js 20.9 ou superior; Node.js 24 LTS é recomendado.
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abra [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Verificações
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint
+npm run typecheck
+npm test
+npm run build
+npm run audit:visual
+```
 
-## Learn More
+`npm run check` verifica formatação, lint, tipos, build e testes de navegador em sequência.
+`npm run audit:visual` prepara o build e o servidor quando necessário, salva capturas e um relatório JSON em `artifacts/browser-audit` e não altera a prévia pública por padrão.
 
-To learn more about Next.js, take a look at the following resources:
+## Estrutura
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```text
+src/
+├── app/          # página, estilos e metadados do App Router
+├── components/   # navegação, motion e elementos compartilhados
+└── lib/          # conteúdo verificável e configuração do site
+public/
+├── downloads/    # currículo
+└── images/       # capturas reais e prévia do projeto
+scripts/          # auditoria visual com Playwright
+tests/            # smoke, links, responsividade e acessibilidade
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deploy
 
-## Deploy on Vercel
+O projeto é estático no caminho principal e está preparado para a Vercel, sem banco de dados ou variáveis secretas. No ambiente de produção, configure a URL canônica:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+NEXT_PUBLIC_SITE_URL=https://seu-dominio.com
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Depois, execute `npm run check` e publique o projeto. Na Vercel, apenas o ambiente `production` é indexável. Em outro provedor, configure também `NEXT_PUBLIC_INDEXABLE=true`; previews e ambiente local permanecem com `noindex` por segurança.
+
+## Contato
+
+- [LinkedIn](https://www.linkedin.com/in/pietropmr/)
+- [GitHub](https://github.com/itsPMR)
+- [pietrosempre22@gmail.com](mailto:pietrosempre22@gmail.com)
