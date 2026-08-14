@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { ArrowIcon } from "@/components/arrow-icon";
+import { ProjectGallery } from "@/components/project-gallery";
 import { Reveal } from "@/components/reveal";
 import { SiteHeader } from "@/components/site-header";
 import { certifications, site, skillGroups } from "@/lib/site";
@@ -42,15 +42,6 @@ function SectionLabel({
     </div>
   );
 }
-
-const classFlowFeatures = [
-  "Autenticação e dados isolados por usuário",
-  "Gestão completa de matérias e tarefas",
-  "Visões de hoje, próximos 7 dias e calendário mensal",
-  "Busca, filtros, prioridades e ordenação",
-  "Estatísticas, alertas e progresso acadêmico",
-  "Imagens nas tarefas e exportação em PDF",
-] as const;
 
 export default function Home() {
   return (
@@ -119,259 +110,10 @@ export default function Home() {
             </div>
           </div>
 
-          <a
-            aria-label="Ir para projetos"
-            className="scroll-cue"
-            href="#projetos"
-          >
-            <span>Role para explorar</span>
+          <a aria-label="Ir para sobre" className="scroll-cue" href="#sobre">
+            <span>Role para conhecer</span>
             <ArrowIcon direction="down" />
           </a>
-        </section>
-
-        <section
-          aria-labelledby="projects-title"
-          className="work-section"
-          id="projetos"
-        >
-          <Reveal className="section-heading section-heading-dark">
-            <SectionLabel index="01">Trabalho selecionado</SectionLabel>
-            <h2 id="projects-title">
-              Projetos com
-              <br />
-              <span>evidência.</span>
-            </h2>
-            <p>
-              Menos volume, mais contexto. Três projetos escolhidos pelo
-              problema, pelas decisões técnicas e pelo que realmente foi
-              implementado.
-            </p>
-          </Reveal>
-
-          <article aria-labelledby="classflow-title" className="classflow-case">
-            <Reveal className="case-title-row">
-              <div>
-                <span className="case-index">01 / Projeto principal</span>
-                <h3 id="classflow-title">ClassFlow</h3>
-              </div>
-              <p>
-                Organização acadêmica que reúne matérias, tarefas e prazos em
-                uma visão única — construída para substituir a dispersão por
-                clareza.
-              </p>
-            </Reveal>
-
-            <Reveal className="classflow-visual">
-              <figure>
-                <div className="visual-main">
-                  <Image
-                    alt="Landing page real do ClassFlow em tema escuro"
-                    height={1000}
-                    sizes="(max-width: 768px) 100vw, 94vw"
-                    src="/images/classflow-landing.png"
-                    width={1440}
-                  />
-                </div>
-                <div className="visual-inset">
-                  <Image
-                    alt="Dashboard demonstrativo real do ClassFlow com tarefas e indicadores"
-                    height={1000}
-                    sizes="(max-width: 768px) 76vw, 42vw"
-                    src="/images/classflow-demo.png"
-                    width={1440}
-                  />
-                </div>
-                <figcaption>
-                  Capturas locais da versão analisada · dados demonstrativos
-                </figcaption>
-              </figure>
-            </Reveal>
-
-            <Reveal className="case-story">
-              <div className="story-block story-lead">
-                <span>Problema</span>
-                <p>
-                  Provas, trabalhos, imagens e prazos costumam ficar espalhados
-                  entre cadernos, mensagens e ferramentas que não conversam
-                  entre si.
-                </p>
-              </div>
-              <div className="story-block">
-                <span>Solução</span>
-                <p>
-                  Uma aplicação web que centraliza a rotina acadêmica, revela o
-                  que exige atenção e transforma tarefas em uma visão clara de
-                  progresso.
-                </p>
-              </div>
-              <div className="story-block">
-                <span>Desenvolvimento</span>
-                <p>
-                  O projeto aplica autenticação, CRUD, regras de negócio,
-                  isolamento com RLS, armazenamento de imagens e geração de PDF
-                  em uma aplicação Flask renderizada no servidor.
-                </p>
-              </div>
-            </Reveal>
-
-            <Reveal className="case-evidence">
-              <div>
-                <span>Dados</span>
-                <strong>Isolados por usuário</strong>
-                <small>Supabase Auth + RLS</small>
-              </div>
-              <div>
-                <span>Rotina</span>
-                <strong>7 dias em foco</strong>
-                <small>Hoje, semana e calendário</small>
-              </div>
-              <div>
-                <span>Saída</span>
-                <strong>Relatórios em PDF</strong>
-                <small>Gerados com ReportLab</small>
-              </div>
-            </Reveal>
-
-            <div className="case-details">
-              <Reveal className="case-features">
-                <SectionLabel index="A">Funcionalidades</SectionLabel>
-                <ol>
-                  {classFlowFeatures.map((feature, index) => (
-                    <li key={feature}>
-                      <span>0{index + 1}</span>
-                      {feature}
-                    </li>
-                  ))}
-                </ol>
-              </Reveal>
-
-              <Reveal className="case-stack" delay={0.08}>
-                <SectionLabel index="B">Stack aplicada</SectionLabel>
-                <p>
-                  Python / Flask / Supabase / PostgreSQL / Jinja / HTML / CSS /
-                  JavaScript / ReportLab / Gunicorn
-                </p>
-                <div className="case-note">
-                  <span>Status</span>
-                  <p>
-                    Código privado. A documentação pública está disponível; o
-                    deploy Flask não está ativo no momento.
-                  </p>
-                </div>
-                <TextLink href="https://itspmr.github.io/ClassFlow/">
-                  Ler documentação
-                </TextLink>
-              </Reveal>
-            </div>
-          </article>
-        </section>
-
-        <section
-          aria-labelledby="other-projects-title"
-          className="secondary-projects"
-        >
-          <Reveal className="secondary-heading">
-            <SectionLabel index="02—03">Outras construções</SectionLabel>
-            <h2 id="other-projects-title">
-              Engenharia também
-              <br />
-              aparece nos detalhes.
-            </h2>
-          </Reveal>
-
-          <article aria-labelledby="truco-title" className="project-feature">
-            <Reveal className="project-copy">
-              <span className="project-number">02</span>
-              <p className="project-type">
-                Multiplayer · Demo pública · Código privado
-              </p>
-              <h3 id="truco-title">PMR Truco</h3>
-              <p className="project-description">
-                Truco Paulista em tempo real para partidas 1×1 e 2×2. O jogo
-                separa estado público e mãos privadas, processa ações em um
-                servidor autoritativo e mantém a mesa sincronizada entre
-                jogadores.
-              </p>
-              <ul className="project-proof" aria-label="Destaques técnicos">
-                <li>Supabase Realtime e RLS</li>
-                <li>Motor de regras em TypeScript puro</li>
-                <li>Suíte de testes unitários e E2E</li>
-                <li>PWA com retomada de partida</li>
-              </ul>
-              <p className="project-stack-line">
-                Next.js · TypeScript · Supabase · Three.js · Vitest · Playwright
-              </p>
-              <TextLink href="https://pmr-truco.vercel.app">
-                Abrir projeto
-              </TextLink>
-            </Reveal>
-
-            <Reveal
-              className="project-visual project-visual-truco"
-              delay={0.08}
-            >
-              <figure>
-                <Image
-                  alt="Mesa de partida real do PMR Truco com cartas e placar"
-                  height={900}
-                  sizes="(max-width: 900px) 100vw, 58vw"
-                  src="/images/pmr-truco-game.png"
-                  width={1280}
-                />
-                <figcaption>
-                  Captura de uma partida em ambiente de teste
-                </figcaption>
-              </figure>
-            </Reveal>
-          </article>
-
-          <article
-            aria-labelledby="assist-title"
-            className="project-feature project-feature-reverse"
-          >
-            <Reveal className="project-copy">
-              <span className="project-number">03</span>
-              <p className="project-type">
-                PWA · Protótipo avançado · Código privado
-              </p>
-              <h3 id="assist-title">PMR Assist</h3>
-              <p className="project-description">
-                Sistema pessoal para organizar tarefas, agenda, rotinas e
-                lembretes, com um assistente em português baseado em ferramentas
-                estruturadas. Integrações externas seguem em validação.
-              </p>
-              <ul className="project-proof" aria-label="Destaques técnicos">
-                <li>Fluxos protegidos por confirmação</li>
-                <li>Agendador com idempotência e tentativas</li>
-                <li>Supabase Edge Functions</li>
-                <li>Testes com Vitest e Playwright</li>
-              </ul>
-              <p className="project-stack-line">
-                React · TypeScript · Vite · Supabase · PWA · Edge Functions
-              </p>
-              <TextLink href="https://pmr-assist.vercel.app">
-                Abrir aplicação <small>(login)</small>
-              </TextLink>
-            </Reveal>
-
-            <Reveal
-              className="project-visual project-visual-assist"
-              delay={0.08}
-            >
-              <figure>
-                <Image
-                  alt="Interface real do modo demonstrativo local do PMR Assist"
-                  height={1100}
-                  sizes="(max-width: 900px) 100vw, 58vw"
-                  src="/images/pmr-assist-assistant.png"
-                  width={1440}
-                />
-                <figcaption>
-                  Captura local da versão analisada · modo demonstração
-                </figcaption>
-              </figure>
-            </Reveal>
-          </article>
         </section>
 
         <section
@@ -380,7 +122,7 @@ export default function Home() {
           id="sobre"
         >
           <Reveal className="about-intro">
-            <SectionLabel index="04">Sobre</SectionLabel>
+            <SectionLabel index="01">Sobre</SectionLabel>
             <h2 id="about-title">
               Formação em curso.
               <br />
@@ -426,12 +168,34 @@ export default function Home() {
         </section>
 
         <section
+          aria-labelledby="projects-title"
+          className="work-section"
+          id="projetos"
+        >
+          <Reveal className="section-heading section-heading-dark">
+            <SectionLabel index="02">Projetos</SectionLabel>
+            <h2 id="projects-title">
+              Projetos com
+              <br />
+              <span>evidência.</span>
+            </h2>
+            <p>
+              Três construções, o mesmo peso visual. Explore cada case para ver
+              o problema, as decisões técnicas e o que realmente foi
+              implementado.
+            </p>
+          </Reveal>
+
+          <ProjectGallery />
+        </section>
+
+        <section
           aria-labelledby="skills-title"
           className="skills-section"
           id="tecnologias"
         >
           <Reveal className="skills-heading">
-            <SectionLabel index="05">Tecnologias</SectionLabel>
+            <SectionLabel index="03">Tecnologias</SectionLabel>
             <h2 id="skills-title">O que uso para construir.</h2>
             <p>
               Conhecimentos aplicados em projetos ou presentes no meu estudo
@@ -466,7 +230,7 @@ export default function Home() {
           id="formacao"
         >
           <Reveal className="education-heading">
-            <SectionLabel index="06">Formação</SectionLabel>
+            <SectionLabel index="04">Formação</SectionLabel>
             <h2 id="education-title">Base para o próximo passo.</h2>
           </Reveal>
 
@@ -516,7 +280,7 @@ export default function Home() {
           id="contato"
         >
           <Reveal className="contact-content">
-            <SectionLabel index="Agora">Contato</SectionLabel>
+            <SectionLabel index="05">Contato</SectionLabel>
             <h2 id="contact-title">
               Disponível para a
               <br />

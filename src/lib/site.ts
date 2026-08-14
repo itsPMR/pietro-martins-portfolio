@@ -22,8 +22,8 @@ export const site = {
 } as const;
 
 export const navigation = [
-  { label: "Projetos", href: "#projetos" },
   { label: "Sobre", href: "#sobre" },
+  { label: "Projetos", href: "#projetos" },
   { label: "Tecnologias", href: "#tecnologias" },
   { label: "Formação", href: "#formacao" },
   { label: "Contato", href: "#contato" },

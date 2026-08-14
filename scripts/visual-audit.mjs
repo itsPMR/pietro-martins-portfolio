@@ -13,14 +13,14 @@ const viewports = [
 ];
 
 const visualStops = [
-  { name: "classflow", selector: ".classflow-case" },
-  { name: "truco", selector: "#truco-title" },
-  { name: "assist", selector: "#assist-title" },
   { name: "about", selector: "#about-title" },
+  { name: "projects", selector: "#projects-title" },
   { name: "skills", selector: "#skills-title" },
   { name: "education", selector: "#education-title" },
   { name: "contact", selector: "#contato" },
 ];
+
+const projectCases = ["classflow", "pmr-truco", "pmr-assist"];
 
 await mkdir(outputDirectory, { recursive: true });
 
@@ -90,6 +90,7 @@ try {
     });
     const page = await context.newPage();
     const errors = [];
+    const modals = [];
 
     page.on("console", (message) => {
       if (message.type() === "error") errors.push(`console: ${message.text()}`);
@@ -164,6 +165,38 @@ try {
       });
     }
 
+    for (const project of projectCases) {
+      await page.locator(`[data-project="${project}"]`).click();
+      const dialog = page.locator("#project-dialog");
+      await dialog.waitFor({ state: "visible" });
+      await page.waitForTimeout(520);
+
+      const modalLayout = await page.evaluate(() => {
+        const projectDialog = document.querySelector("#project-dialog");
+        const scrollArea = document.querySelector(".project-dialog-scroll");
+
+        return {
+          bodyLocked: document.body.dataset.projectOpen === "true",
+          dialogOverflow:
+            (projectDialog?.scrollWidth ?? 0) -
+            (projectDialog?.clientWidth ?? 0),
+          scrollAreaOverflow:
+            (scrollArea?.scrollWidth ?? 0) - (scrollArea?.clientWidth ?? 0),
+        };
+      });
+
+      await page.screenshot({
+        path: path.join(
+          outputDirectory,
+          `portfolio-${viewport.name}-${project}-open.png`,
+        ),
+      });
+      modals.push({ layout: modalLayout, project });
+
+      await dialog.getByRole("button", { name: /Fechar projeto/ }).click();
+      await dialog.waitFor({ state: "detached" });
+    }
+
     if (
       viewport.name === "desktop" &&
       process.env.UPDATE_PORTFOLIO_PREVIEW === "true"
@@ -172,7 +205,7 @@ try {
       await page.screenshot({ path: "public/images/portfolio-preview.png" });
     }
 
-    report.push({ errors, layout, viewport: viewport.name });
+    report.push({ errors, layout, modals, viewport: viewport.name });
     await context.close();
   }
 } finally {
