@@ -20,7 +20,7 @@ export function Reveal({ children, className, delay = 0 }: RevealProps) {
     <LazyMotion features={loadMotionFeatures} strict>
       <m.div
         className={className}
-        initial={canAnimate ? { opacity: 0, y: 28 } : false}
+        initial={{ opacity: 0, y: 28 }}
         transition={{
           delay: canAnimate ? delay : 0,
           duration: canAnimate ? 0.7 : 0,

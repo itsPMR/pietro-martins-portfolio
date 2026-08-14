@@ -10,7 +10,7 @@ A interface segue a ideia **“Evidência, não promessa”**: composição edit
 
 ## Projetos apresentados
 
-- **ClassFlow:** case principal de organização acadêmica em Python, Flask, Supabase e PostgreSQL.
+- **ClassFlow:** organização acadêmica em Python, Flask, Supabase e PostgreSQL.
 - **PMR Truco:** multiplayer em tempo real com Next.js, TypeScript e Supabase.
 - **PMR Assist:** PWA de organização pessoal com assistente baseado em ferramentas estruturadas.
 
@@ -28,7 +28,9 @@ As imagens usadas são capturas reais das versões analisadas. Links privados e 
 ## Recursos
 
 - landing page responsiva com composição própria para mobile;
-- case study editorial completo do ClassFlow;
+- galeria editorial compacta com os três projetos no mesmo plano;
+- cases completos em dialogs acessíveis, sem troca de rota;
+- fechamento por botão, minimização, `Escape` e clique no backdrop;
 - currículo em PDF para download;
 - navegação por teclado, skip link, foco visível e menu mobile acessível;
 - metadados Open Graph/Twitter, JSON-LD, favicon, manifest, sitemap e robots;
