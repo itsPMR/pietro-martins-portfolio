@@ -275,6 +275,63 @@ test("navigation anchors follow the new section order", async ({ page }) => {
   }
 });
 
+test("unlocks the recruiter route without stealing focus", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.clock.install();
+  await page.reload();
+
+  const recruiterRoute = page.getByRole("complementary", {
+    name: "Rota de leitura para recrutadores",
+  });
+
+  await expect(recruiterRoute).toHaveCount(0);
+  await page.locator("main").focus();
+  await page.clock.runFor(7_000);
+
+  await expect(recruiterRoute).toHaveAttribute("data-level", "1");
+  await expect(
+    recruiterRoute.getByRole("button", {
+      name: "Recolher rota do recrutador",
+    }),
+  ).toHaveAttribute("aria-expanded", "true");
+  await expect(page.locator("main")).toBeFocused();
+
+  await page
+    .getByRole("button", { name: "Explorar projeto ClassFlow" })
+    .click();
+  await expect(recruiterRoute).toHaveAttribute("data-level", "3");
+  await expect(recruiterRoute).toHaveAttribute("inert", "");
+  await page.keyboard.press("Escape");
+  await page.clock.runFor(1_200);
+  await expect(recruiterRoute).not.toHaveAttribute("inert", "");
+
+  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+  await page.clock.runFor(50);
+
+  await expect(recruiterRoute).toHaveAttribute("data-level", "4");
+  await expect(
+    recruiterRoute.getByRole("link", { name: "Contato", exact: true }),
+  ).toHaveAttribute("href", "#contato");
+  await expect(
+    recruiterRoute.getByRole("button", {
+      name: "Recolher rota do recrutador",
+    }),
+  ).toHaveAttribute("aria-expanded", "true");
+
+  const results = await new AxeBuilder({ page }).analyze();
+  const blockingViolations = results.violations.filter(({ impact }) =>
+    ["serious", "critical"].includes(impact ?? ""),
+  );
+  expect(blockingViolations).toEqual([]);
+
+  await page.clock.runFor(8_300);
+  await expect(
+    recruiterRoute.getByRole("button", {
+      name: "Expandir rota do recrutador",
+    }),
+  ).toHaveAttribute("aria-expanded", "false");
+});
+
 test("mobile navigation traps focus, closes with Escape and focuses a destination", async ({
   page,
 }) => {

@@ -1,6 +1,7 @@
 import { ArrowIcon } from "@/components/arrow-icon";
 import { PointerHalo } from "@/components/pointer-halo";
 import { ProjectGallery } from "@/components/project-gallery";
+import { RecruiterSignal } from "@/components/recruiter-signal";
 import { Reveal } from "@/components/reveal";
 import { SiteHeader } from "@/components/site-header";
 import { certifications, site, skillGroups } from "@/lib/site";
@@ -101,26 +102,6 @@ export default function Home() {
                 </div>
               </div>
             </div>
-
-            <div className="hero-facts hero-enter hero-enter-5">
-              <div>
-                <span>01 / Formação</span>
-                <strong>Técnico em Desenvolvimento de Sistemas</strong>
-              </div>
-              <div>
-                <span>02 / Foco</span>
-                <strong>Python · Backend · Dados</strong>
-              </div>
-              <div>
-                <span>03 / Agora</span>
-                <strong>Disponível para a primeira oportunidade</strong>
-              </div>
-            </div>
-
-            <a aria-label="Ir para sobre" className="scroll-cue" href="#sobre">
-              <span>Começar</span>
-              <ArrowIcon direction="down" />
-            </a>
           </div>
         </section>
 
@@ -378,6 +359,7 @@ export default function Home() {
         <span>Guarulhos — SP · 2026</span>
       </footer>
 
+      <RecruiterSignal />
       <PointerHalo />
     </>
   );

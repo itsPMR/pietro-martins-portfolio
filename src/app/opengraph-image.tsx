@@ -8,8 +8,8 @@ export default function OpenGraphImage() {
   return new ImageResponse(
     <div
       style={{
-        background: "#0b0c0a",
-        color: "#ede9de",
+        background: "#08090b",
+        color: "#f2efe8",
         display: "flex",
         flexDirection: "column",
         height: "100%",
@@ -21,7 +21,7 @@ export default function OpenGraphImage() {
     >
       <div
         style={{
-          border: "1px solid rgba(237,233,222,.22)",
+          border: "1px solid rgba(242,239,232,.22)",
           borderRadius: 24,
           display: "flex",
           fontSize: 18,
@@ -32,7 +32,7 @@ export default function OpenGraphImage() {
         }}
       >
         <span>PMR / Portfólio 2026</span>
-        <span style={{ color: "#a9aa9f" }}>Guarulhos — SP</span>
+        <span style={{ color: "#a7aaae" }}>Guarulhos — SP</span>
       </div>
       <div style={{ display: "flex", flexDirection: "column" }}>
         <div
@@ -60,7 +60,7 @@ export default function OpenGraphImage() {
         >
           <span
             style={{
-              background: "#d7f35e",
+              background: "#e5483d",
               display: "flex",
               height: 18,
               marginRight: 22,
@@ -73,7 +73,7 @@ export default function OpenGraphImage() {
       <div
         style={{
           alignItems: "flex-end",
-          borderBottom: "1px solid rgba(237,233,222,.28)",
+          borderBottom: "1px solid rgba(242,239,232,.28)",
           display: "flex",
           fontSize: 29,
           justifyContent: "space-between",
@@ -83,7 +83,7 @@ export default function OpenGraphImage() {
         <span style={{ maxWidth: 680 }}>
           Backend, Python e aplicações web construídas com evidência.
         </span>
-        <span style={{ color: "#d7f35e", fontSize: 72, lineHeight: 0.7 }}>
+        <span style={{ color: "#e5483d", fontSize: 72, lineHeight: 0.7 }}>
           ↗
         </span>
       </div>

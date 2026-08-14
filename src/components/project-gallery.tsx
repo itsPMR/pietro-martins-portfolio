@@ -5,6 +5,7 @@ import { AnimatePresence, LazyMotion, m, useReducedMotion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { ArrowIcon } from "@/components/arrow-icon";
+import { PORTFOLIO_PROJECT_OPENED_EVENT } from "@/components/recruiter-signal";
 import { Reveal } from "@/components/reveal";
 import { projects } from "@/lib/projects";
 
@@ -60,6 +61,11 @@ export function ProjectGallery() {
     });
     setSelectedId(projectId);
     setIsOpen(true);
+    window.dispatchEvent(
+      new CustomEvent(PORTFOLIO_PROJECT_OPENED_EVENT, {
+        detail: { projectId },
+      }),
+    );
   };
 
   useEffect(() => {
@@ -199,10 +205,11 @@ export function ProjectGallery() {
                     <Image
                       alt={project.images[0].alt}
                       height={project.images[0].height}
+                      loading={projectTier === "featured" ? "eager" : "lazy"}
                       sizes={
                         projectTier === "featured"
-                          ? "(max-width: 672px) 92vw, (max-width: 1680px) 56vw, 56rem"
-                          : "(max-width: 672px) 92vw, (max-width: 1680px) 46vw, 48rem"
+                          ? "(max-width: 900px) 92vw, (max-width: 1680px) 58vw, 56rem"
+                          : "(max-width: 900px) 92vw, (max-width: 1680px) 42vw, 42rem"
                       }
                       src={project.images[0].src}
                       width={project.images[0].width}
@@ -252,15 +259,15 @@ export function ProjectGallery() {
                       ? "featured"
                       : "secondary"
                   }
-                  exit={{ opacity: 0 }}
-                  initial={{ opacity: 0 }}
+                  exit={{ opacity: 1 }}
+                  initial={{ opacity: 1 }}
                   onPointerDown={(event) => {
                     if (event.currentTarget === event.target) closeProject();
                   }}
-                  transition={{ duration: shouldReduceMotion ? 0 : 0.24 }}
+                  transition={{ duration: shouldReduceMotion ? 0 : 0.48 }}
                 >
                   <m.div
-                    animate={{ opacity: 1, scale: 1, x: 0, y: 0 }}
+                    animate={{ scale: 1, x: 0, y: 0 }}
                     aria-describedby={`project-dialog-description-${selectedProject.id}`}
                     aria-labelledby={`project-dialog-title-${selectedProject.id}`}
                     aria-modal="true"
@@ -273,9 +280,8 @@ export function ProjectGallery() {
                     }
                     exit={
                       shouldReduceMotion
-                        ? { opacity: 0 }
+                        ? { scale: 1, x: 0, y: 0 }
                         : {
-                            opacity: 0,
                             scale: origin.scale,
                             x: origin.x,
                             y: origin.y,
@@ -284,9 +290,8 @@ export function ProjectGallery() {
                     id="project-dialog"
                     initial={
                       shouldReduceMotion
-                        ? { opacity: 0 }
+                        ? false
                         : {
-                            opacity: 0,
                             scale: origin.scale,
                             x: origin.x,
                             y: origin.y,
