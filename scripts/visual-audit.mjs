@@ -10,6 +10,7 @@ const viewports = [
   { height: 1_100, name: "desktop", width: 1_440 },
   { height: 768, name: "tablet", width: 1_024 },
   { height: 844, name: "mobile", width: 390 },
+  { height: 720, name: "mobile-small", width: 320 },
 ];
 
 const visualStops = [

@@ -31,9 +31,10 @@ export function ProjectGallery() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [origin, setOrigin] = useState<AnimationOrigin>(defaultOrigin);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
-  const dialogRef = useRef<HTMLElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
   const shouldReduceMotion = useReducedMotion();
+  const projectCount = String(projects.length).padStart(2, "0");
 
   const selectedProject =
     projects.find((project) => project.id === selectedId) ?? null;
@@ -152,60 +153,89 @@ export function ProjectGallery() {
   return (
     <>
       <ul aria-label="Projetos selecionados" className="project-grid">
-        {projects.map((project, index) => (
-          <li key={project.id}>
-            <Reveal delay={index * 0.07}>
-              <button
-                aria-controls="project-dialog"
-                aria-expanded={selectedId === project.id && isOpen}
-                aria-haspopup="dialog"
-                aria-label={`Explorar projeto ${project.name}`}
-                className="project-card"
-                data-project={project.id}
-                onClick={(event) =>
-                  openProject(project.id, event.currentTarget)
-                }
-                type="button"
-              >
-                <span className="project-card-topline">
-                  <span>{project.number}</span>
-                  <span>{project.status}</span>
-                </span>
+        {projects.map((project, index) => {
+          const projectTier =
+            project.id === "classflow" ? "featured" : "secondary";
 
-                <span className="project-card-media">
-                  <Image
-                    alt={project.images[0].alt}
-                    height={project.images[0].height}
-                    sizes="(max-width: 672px) 92vw, (max-width: 1120px) 46vw, 30vw"
-                    src={project.images[0].src}
-                    width={project.images[0].width}
-                  />
-                  <span aria-hidden="true" className="project-card-cross">
-                    +
+          return (
+            <li
+              className={`project-grid-item project-grid-item--${projectTier}`}
+              data-featured={projectTier === "featured"}
+              data-project-tier={projectTier}
+              key={project.id}
+            >
+              <Reveal delay={index * 0.07}>
+                <button
+                  aria-controls={
+                    selectedId === project.id && isOpen
+                      ? "project-dialog"
+                      : undefined
+                  }
+                  aria-expanded={selectedId === project.id && isOpen}
+                  aria-haspopup="dialog"
+                  aria-label={`Explorar projeto ${project.name}`}
+                  className={`project-card project-card--${projectTier}`}
+                  data-featured={projectTier === "featured"}
+                  data-project={project.id}
+                  data-project-tier={projectTier}
+                  onClick={(event) =>
+                    openProject(project.id, event.currentTarget)
+                  }
+                  type="button"
+                >
+                  <span className="project-card-topline">
+                    <span className="project-card-number">
+                      {project.number} / {projectCount}
+                    </span>
+                    <span className="project-card-status">
+                      {project.status}
+                    </span>
                   </span>
-                </span>
 
-                <span className="project-card-body">
-                  <span className="project-card-type">{project.type}</span>
-                  <h3>{project.name}</h3>
-                  <span className="project-card-summary">
-                    {project.summary}
+                  <span
+                    className="project-card-media"
+                    data-media-count={project.images.length}
+                  >
+                    <Image
+                      alt={project.images[0].alt}
+                      height={project.images[0].height}
+                      sizes={
+                        projectTier === "featured"
+                          ? "(max-width: 672px) 92vw, (max-width: 1680px) 56vw, 56rem"
+                          : "(max-width: 672px) 92vw, (max-width: 1680px) 46vw, 48rem"
+                      }
+                      src={project.images[0].src}
+                      width={project.images[0].width}
+                    />
+                    <span aria-hidden="true" className="project-card-cross">
+                      +
+                    </span>
                   </span>
-                </span>
 
-                <span className="project-card-footer">
-                  <span className="project-card-stack">
-                    {project.cardStack.join(" · ")}
+                  <span className="project-card-body">
+                    <span className="project-card-eyebrow project-card-type">
+                      {project.type}
+                    </span>
+                    <h3 className="project-card-title">{project.name}</h3>
+                    <span className="project-card-summary">
+                      {project.summary}
+                    </span>
                   </span>
-                  <span className="project-card-action">
-                    Explorar projeto
-                    <ArrowIcon direction="right" />
+
+                  <span className="project-card-footer">
+                    <span className="project-card-stack">
+                      {project.cardStack.join(" · ")}
+                    </span>
+                    <span className="project-card-action">
+                      <span>Explorar projeto</span>
+                      <ArrowIcon direction="right" />
+                    </span>
                   </span>
-                </span>
-              </button>
-            </Reveal>
-          </li>
-        ))}
+                </button>
+              </Reveal>
+            </li>
+          );
+        })}
       </ul>
 
       {isMounted &&
@@ -215,8 +245,13 @@ export function ProjectGallery() {
               {isOpen && selectedProject ? (
                 <m.div
                   animate={{ opacity: 1 }}
-                  aria-label={`Projeto ${selectedProject.name} expandido`}
                   className="project-modal-root"
+                  data-project={selectedProject.id}
+                  data-project-tier={
+                    selectedProject.id === "classflow"
+                      ? "featured"
+                      : "secondary"
+                  }
                   exit={{ opacity: 0 }}
                   initial={{ opacity: 0 }}
                   onPointerDown={(event) => {
@@ -224,12 +259,18 @@ export function ProjectGallery() {
                   }}
                   transition={{ duration: shouldReduceMotion ? 0 : 0.24 }}
                 >
-                  <m.article
+                  <m.div
                     animate={{ opacity: 1, scale: 1, x: 0, y: 0 }}
                     aria-describedby={`project-dialog-description-${selectedProject.id}`}
                     aria-labelledby={`project-dialog-title-${selectedProject.id}`}
                     aria-modal="true"
                     className="project-dialog"
+                    data-project={selectedProject.id}
+                    data-project-tier={
+                      selectedProject.id === "classflow"
+                        ? "featured"
+                        : "secondary"
+                    }
                     exit={
                       shouldReduceMotion
                         ? { opacity: 0 }
@@ -260,8 +301,10 @@ export function ProjectGallery() {
                     }}
                   >
                     <div className="project-dialog-toolbar">
-                      <div>
-                        <span>{selectedProject.number} / 03</span>
+                      <div className="project-dialog-index">
+                        <span>
+                          {selectedProject.number} / {projectCount}
+                        </span>
                         <strong>{selectedProject.name}</strong>
                       </div>
                       <div className="project-dialog-actions">
@@ -289,19 +332,27 @@ export function ProjectGallery() {
 
                     <div className="project-dialog-scroll">
                       <header className="project-dialog-hero">
-                        <div>
-                          <span>{selectedProject.type}</span>
-                          <h2 id={`project-dialog-title-${selectedProject.id}`}>
+                        <div className="project-dialog-heading">
+                          <span className="project-dialog-eyebrow">
+                            {selectedProject.type}
+                          </span>
+                          <h2
+                            className="project-dialog-title"
+                            id={`project-dialog-title-${selectedProject.id}`}
+                          >
                             {selectedProject.name}
                           </h2>
                         </div>
-                        <div>
+                        <div className="project-dialog-intro">
                           <p
+                            className="project-dialog-summary"
                             id={`project-dialog-description-${selectedProject.id}`}
                           >
                             {selectedProject.summary}
                           </p>
-                          <span>{selectedProject.fullStack}</span>
+                          <span className="project-dialog-stackline">
+                            {selectedProject.fullStack}
+                          </span>
                         </div>
                       </header>
 
@@ -310,11 +361,18 @@ export function ProjectGallery() {
                         data-image-count={selectedProject.images.length}
                       >
                         {selectedProject.images.map((image, index) => (
-                          <figure key={image.src}>
+                          <figure
+                            className={
+                              index === 0
+                                ? "project-dialog-image project-dialog-image--lead"
+                                : "project-dialog-image project-dialog-image--supporting"
+                            }
+                            data-image-index={index + 1}
+                            key={image.src}
+                          >
                             <Image
                               alt={image.alt}
                               height={image.height}
-                              priority={index === 0}
                               sizes="(max-width: 672px) 100vw, 88vw"
                               src={image.src}
                               width={image.width}
@@ -332,8 +390,13 @@ export function ProjectGallery() {
                         className="project-dialog-story"
                       >
                         {selectedProject.story.map((block) => (
-                          <div key={block.label}>
-                            <span>{block.label}</span>
+                          <div
+                            className="project-dialog-story-block"
+                            key={block.label}
+                          >
+                            <span className="project-dialog-story-label">
+                              {block.label}
+                            </span>
                             <p>{block.text}</p>
                           </div>
                         ))}
@@ -344,7 +407,10 @@ export function ProjectGallery() {
                         className="project-dialog-evidence"
                       >
                         {selectedProject.evidence.map((item) => (
-                          <div key={item.label}>
+                          <div
+                            className="project-dialog-evidence-item"
+                            key={item.label}
+                          >
                             <span>{item.label}</span>
                             <strong>{item.value}</strong>
                             <small>{item.detail}</small>
@@ -358,9 +424,12 @@ export function ProjectGallery() {
                             <span>A</span>
                             <span>Funcionalidades</span>
                           </div>
-                          <ol>
+                          <ol className="project-dialog-feature-list">
                             {selectedProject.features.map((feature, index) => (
-                              <li key={feature}>
+                              <li
+                                className="project-dialog-feature"
+                                key={feature}
+                              >
                                 <span>
                                   {String(index + 1).padStart(2, "0")}
                                 </span>
@@ -398,14 +467,20 @@ export function ProjectGallery() {
                       </div>
 
                       <div className="project-dialog-end">
-                        <span>Fim do case</span>
-                        <button onClick={closeProject} type="button">
+                        <span className="project-dialog-end-label">
+                          Fim do case
+                        </span>
+                        <button
+                          className="project-dialog-end-action"
+                          onClick={closeProject}
+                          type="button"
+                        >
                           Voltar aos projetos
                           <ArrowIcon direction="up-right" />
                         </button>
                       </div>
                     </div>
-                  </m.article>
+                  </m.div>
                 </m.div>
               ) : null}
             </AnimatePresence>

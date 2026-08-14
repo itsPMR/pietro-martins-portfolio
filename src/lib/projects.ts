@@ -73,7 +73,7 @@ export const projects = [
       {
         alt: "Dashboard demonstrativo real do ClassFlow com tarefas e indicadores",
         caption: "Dashboard com dados demonstrativos",
-        height: 1000,
+        height: 1100,
         src: "/images/classflow-demo.png",
         width: 1440,
       },

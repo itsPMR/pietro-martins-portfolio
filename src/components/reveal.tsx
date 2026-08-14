@@ -20,14 +20,16 @@ export function Reveal({ children, className, delay = 0 }: RevealProps) {
     <LazyMotion features={loadMotionFeatures} strict>
       <m.div
         className={className}
-        initial={{ opacity: 0, y: 28 }}
+        initial={
+          canAnimate ? { clipPath: "inset(0 0 12% 0)", opacity: 0 } : false
+        }
         transition={{
           delay: canAnimate ? delay : 0,
           duration: canAnimate ? 0.7 : 0,
           ease: [0.22, 1, 0.36, 1],
         }}
         viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
-        whileInView={{ opacity: 1, y: 0 }}
+        whileInView={{ clipPath: "inset(0 0 0 0)", opacity: 1 }}
       >
         {children}
       </m.div>
