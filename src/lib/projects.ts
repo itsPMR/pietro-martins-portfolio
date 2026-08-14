@@ -81,14 +81,14 @@ export const projects = [
     links: [
       {
         href: "https://itspmr.github.io/ClassFlow/",
-        label: "Ler documentação",
+        label: "Ver case técnico",
       },
     ],
     name: "ClassFlow",
     number: "01",
-    status: "Documentação pública",
+    status: "Case técnico público",
     statusDetail:
-      "Código privado. A documentação pública está disponível; o deploy Flask não está ativo no momento.",
+      "Código privado. O case apresenta capturas reais da versão analisada; o deploy Flask não está ativo no momento.",
     story: [
       {
         label: "Problema",
@@ -105,7 +105,7 @@ export const projects = [
     ],
     summary:
       "Organização acadêmica que reúne matérias, tarefas e prazos em uma visão única — construída para substituir a dispersão por clareza.",
-    type: "Organização acadêmica · Código privado",
+    type: "Organização acadêmica · Case público",
   },
   {
     cardStack: ["Next.js", "TypeScript", "Supabase"],

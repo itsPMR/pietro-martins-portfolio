@@ -10,7 +10,7 @@ A interface segue a ideia **“Evidência, não promessa”**: composição edit
 
 ## Projetos apresentados
 
-- **ClassFlow:** organização acadêmica em Python, Flask, Supabase e PostgreSQL.
+- **ClassFlow:** organização acadêmica em Python, Flask, Supabase e PostgreSQL, com case técnico público e código privado.
 - **PMR Truco:** multiplayer em tempo real com Next.js, TypeScript e Supabase.
 - **PMR Assist:** PWA de organização pessoal com assistente baseado em ferramentas estruturadas.
 

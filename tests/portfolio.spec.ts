@@ -167,11 +167,15 @@ test("opens every case and supports keyboard, backdrop and minimize closing", as
     }),
   ).toBeVisible();
   await expect(
-    classFlowDialog.getByRole("link", { name: "Ler documentação" }),
+    classFlowDialog.getByRole("link", { name: "Ver case técnico" }),
   ).toHaveAttribute("href", "https://itspmr.github.io/ClassFlow/");
+  await expect(classFlowDialog.getByText("Case técnico público")).toBeVisible();
+  await expect(
+    classFlowDialog.getByText(/deploy Flask não está ativo/i),
+  ).toBeVisible();
 
   await classFlowDialog
-    .getByRole("link", { name: "Ler documentação" })
+    .getByRole("link", { name: "Ver case técnico" })
     .evaluate((link) => {
       link.addEventListener("click", (event) => event.preventDefault(), {
         once: true,
