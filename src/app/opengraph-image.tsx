@@ -8,7 +8,7 @@ export default function OpenGraphImage() {
   return new ImageResponse(
     <div
       style={{
-        background: "#090a0b",
+        background: "#08090b",
         color: "#f2efe8",
         display: "flex",
         flexDirection: "column",
@@ -21,12 +21,13 @@ export default function OpenGraphImage() {
     >
       <div
         style={{
-          borderTop: "1px solid rgba(242,239,232,.28)",
+          border: "1px solid rgba(242,239,232,.22)",
+          borderRadius: 24,
           display: "flex",
           fontSize: 18,
           justifyContent: "space-between",
           letterSpacing: "0.12em",
-          paddingTop: 18,
+          padding: "18px 22px",
           textTransform: "uppercase",
         }}
       >

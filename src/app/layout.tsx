@@ -1,12 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { IBM_Plex_Mono, Instrument_Sans } from "next/font/google";
+import { Hanken_Grotesk, IBM_Plex_Mono } from "next/font/google";
 import { isPublicDeployment, site, siteUrl } from "@/lib/site";
 import "./globals.css";
 
-const instrumentSans = Instrument_Sans({
+const hankenGrotesk = Hanken_Grotesk({
   display: "swap",
   subsets: ["latin"],
-  variable: "--font-instrument",
+  variable: "--font-hanken",
 });
 
 const ibmPlexMono = IBM_Plex_Mono({
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   colorScheme: "dark",
-  themeColor: "#090a0b",
+  themeColor: "#08090b",
 };
 
 const structuredData = {
@@ -83,7 +83,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
-      className={`${instrumentSans.variable} ${ibmPlexMono.variable}`}
+      className={`${hankenGrotesk.variable} ${ibmPlexMono.variable}`}
       lang="pt-BR"
     >
       <body>
